@@ -19,6 +19,7 @@ public class SeleniumTest {
     private final By ACCEPT_COOKIES_BTN = By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
     private final By MENU_ITEM = By.xpath(".//li/a[@class = 'submenu-lvl1__link' ]");
     private final By MENU = By.xpath(".//div[contains(@class, 'submenu-lvl1 submenu-lvl1--invisible submenu-lvl1--index')]");
+    final String expectedSitePage = "https://www.1a.lv/c/datortehnika-preces-birojam/2pd";
 
     @Test
     public void method() {
@@ -44,8 +45,9 @@ public class SeleniumTest {
             if (we.getText().equals(SECTION)) {
                 wait.until(ExpectedConditions.elementToBeClickable(we));
                 we.click();
-                Assert.assertEquals(driver.getCurrentUrl(),
-                        "https://www.1a.lv/c/datortehnika-preces-birojam/2pd");
+
+                Assert.assertEquals(driver.getCurrentUrl(),expectedSitePage,
+                        "User was not redirected to the page");
                 break;
             }
         }
@@ -53,6 +55,6 @@ public class SeleniumTest {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        //driver.quit();
+        driver.quit();
     }
 }
