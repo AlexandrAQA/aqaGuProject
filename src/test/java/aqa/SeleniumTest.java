@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -14,41 +15,44 @@ import java.util.List;
 
 public class SeleniumTest {
     WebDriver driver;
-//    private final By REGISTRATION_FORM = By.id("registration");
-//    private final By FIRST_NAME = By.id("NAME");
-    private final By MENU_ITEM = By.xpath(".//li[contains(@class, 'submenu-lvl1__list-item--has-child')]");
+
     private final By ACCEPT_COOKIES_BTN = By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
-    private final String SECTION = "Instrumenti";
+    private final By MENU_ITEM = By.xpath(".//li/a[@class = 'submenu-lvl1__link' ]");
+    private final By MENU = By.xpath(".//div[contains(@class, 'submenu-lvl1 submenu-lvl1--invisible submenu-lvl1--index')]");
 
     @Test
-    public void method(){
+    public void method() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://1a.lv");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.presenceOfElementLocated(ACCEPT_COOKIES_BTN));
-
-        //0.find element
+        //0.find cookie element
         WebElement acceptBtn = driver.findElement(ACCEPT_COOKIES_BTN);
-        //click on the element
+        //click on the cookie element
         acceptBtn.click();
 
-        //1. find all sections
-        List<WebElement> menuItems = driver.findElements(MENU_ITEM);
-        //2. find necessary section
-        for (WebElement el : menuItems) {
-            //System.out.println(el.getText());
-            if(el.getText().equals(SECTION)){
-                System.out.println(el.getText());
-                    el.click();
+        //find menu item which contains elements
+        WebElement menuBlock = driver.findElement(MENU);
+        //create List items with menuBlock
+        List<WebElement> items = menuBlock.findElements(MENU_ITEM);
+
+        //foreach where we find 1 section and click on it
+        for (WebElement we : items) {
+            String SECTION = "Datortehnika, preces birojam";
+            if (we.getText().equals(SECTION)) {
+                wait.until(ExpectedConditions.elementToBeClickable(we));
+                we.click();
+                Assert.assertEquals(driver.getCurrentUrl(),
+                        "https://www.1a.lv/c/datortehnika-preces-birojam/2pd");
+                break;
             }
         }
-        //3. click on it
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(){
-        driver.quit();
+    public void tearDown() {
+        //driver.quit();
     }
 }
