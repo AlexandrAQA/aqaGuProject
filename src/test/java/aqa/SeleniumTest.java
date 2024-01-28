@@ -22,6 +22,7 @@ public class SeleniumTest {
     @Test
     public void method(){
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("http://1a.lv");
         //driver.findElement(REGISTRATION_BTN).click();
 
@@ -32,6 +33,14 @@ public class SeleniumTest {
         WebElement acceptBtn = driver.findElement(ACCEPT_COOKIES_BTN);
         //click on the element
         acceptBtn.click();
+
+        /*
+
+        1. find all sections
+        2. find necessary section
+        3. click on it
+
+         */
     }
 
     @AfterMethod(alwaysRun = true)
