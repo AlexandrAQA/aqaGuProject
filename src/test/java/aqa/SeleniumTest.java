@@ -18,7 +18,7 @@ public class SeleniumTest {
 //    private final By FIRST_NAME = By.id("NAME");
     private final By MENU_ITEM = By.xpath(".//li[contains(@class, 'submenu-lvl1__list-item--has-child')]");
     private final By ACCEPT_COOKIES_BTN = By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
-    private final String SECTION = "mobilais telefons samsung galaxy s24 ultra";
+    private final String SECTION = "Instrumenti";
 
     @Test
     public void method(){
@@ -38,7 +38,11 @@ public class SeleniumTest {
         List<WebElement> menuItems = driver.findElements(MENU_ITEM);
         //2. find necessary section
         for (WebElement el : menuItems) {
-            System.out.println(el);
+            //System.out.println(el.getText());
+            if(el.getText().equals(SECTION)){
+                System.out.println(el.getText());
+                    el.click();
+            }
         }
         //3. click on it
     }
