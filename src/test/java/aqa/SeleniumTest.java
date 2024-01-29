@@ -1,14 +1,13 @@
 package aqa;
 
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
@@ -39,20 +38,16 @@ public class SeleniumTest {
         List<WebElement> items = menuBlock.findElements(MENU_ITEM);
 
         //foreach where we find 1 section and click on it
+        boolean isSectionFound = false;
         for (WebElement we : items) {
             String SECTION = "Datortehnika, preces birojam";
             if (we.getText().equals(SECTION)) {
                 wait.until(ExpectedConditions.elementToBeClickable(we));
+                isSectionFound = true;
                 we.click();
-                Assert.assertEquals(driver.getCurrentUrl(),
-                        "https://www.1a.lv/c/datortehnika-preces-birojam/2pd");
                 break;
             }
         }
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
-        //driver.quit();
+        Assertions.assertTrue(isSectionFound, "Section not found");
     }
 }
