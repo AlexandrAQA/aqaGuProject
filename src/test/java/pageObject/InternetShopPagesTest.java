@@ -6,5 +6,6 @@ public class InternetShopPagesTest {
     @Test
     public void firstTest(){
         BaseFunc baseFunc = new BaseFunc();
+        baseFunc.openURL("1a.lv");
     }
 }

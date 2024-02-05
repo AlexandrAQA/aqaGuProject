@@ -14,6 +14,9 @@ public class BaseFunc {
 
 
     public void openURL(String url) {
+        if(!url.startsWith("http://") && !url.startsWith("https://")){
+            url = "http://" + url;
+        }
         driver.get(url);
     }
 }
