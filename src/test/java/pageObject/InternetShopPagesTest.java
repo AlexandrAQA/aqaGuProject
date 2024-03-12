@@ -11,6 +11,6 @@ public class InternetShopPagesTest {
 
         HomePage homePage = new HomePage(baseFunc);
         homePage.acceptCookies();
-        //homePage.selectMenuItem("Datortehnika, preces birojam");
+        homePage.selectMenuItem("Datortehnika, preces birojam");
     }
 }
