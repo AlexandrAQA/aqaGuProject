@@ -2,6 +2,7 @@ package pageObject;
 
 import org.testng.annotations.Test;
 import pageObject.pages.HomePage;
+import pageObject.pages.SubcategoriesPage;
 
 public class InternetShopPagesTest {
     @Test
@@ -11,6 +12,9 @@ public class InternetShopPagesTest {
 
         HomePage homePage = new HomePage(baseFunc);
         homePage.acceptCookies();
-        homePage.selectMenuItem("Datortehnika, preces birojam");
+        homePage.selectMenuItem("Mēbeles");
+
+        SubcategoriesPage subcategoriesPage = new SubcategoriesPage(baseFunc);
+        subcategoriesPage.selectSubcategory("Biroja mēbeles");
     }
 }
